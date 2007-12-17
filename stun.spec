@@ -15,7 +15,6 @@ Requires(post): rpm-helper
 Requires(preun): rpm-helper
 BuildRequires:	dos2unix
 BuildRequires:	openssl-devel
-BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The STUN (Simple Traversal of UDP through NATs (Network Address Translation))
