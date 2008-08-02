@@ -1,7 +1,7 @@
 Summary:        STUN server and client
 Name:           stun
 Version:        0.96
-Release:        %mkrel 4
+Release:        %mkrel 5
 License:        BSD
 Group:          System/Servers
 URL:            http://www.vovida.org/applications/downloads/stun/
