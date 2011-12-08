@@ -72,7 +72,7 @@ This package contains the STUN client.
 %patch2 -p0
 
 # strip away annoying ^M
-find -type f -exec dos2unix -U {} \;
+find -type f -exec dos2unix {} \;
 
 cp %{SOURCE1} stun-server.init
 cp %{SOURCE2} stun-server.sysconfig
