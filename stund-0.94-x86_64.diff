@@ -1,0 +1,11 @@
+--- stun.cxx	2005-05-12 17:13:15.000000000 +0200
++++ stun.cxx.oden	2005-05-12 17:12:06.000000000 +0200
+@@ -667,7 +667,7 @@
+       tick = hightick;
+       tick <<= 32;
+       tick |= lowtick;
+-#elif defined(__GNUC__) && ( defined(__i686__) || defined(__i386__) )
++#elif defined(__GNUC__) && ( defined(__i686__) || defined(__i386__) || defined(__x86_64__) )
+       asm("rdtsc" : "=A" (tick));
+ #elif defined (__SUNPRO_CC) || defined( __sparc__ )	
+       tick = gethrtime();

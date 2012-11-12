@@ -1,0 +1,39 @@
+--- server.cxx.orig	2007-03-26 15:27:43.000000000 +0200
++++ server.cxx	2007-03-26 15:29:35.000000000 +0200
+@@ -189,13 +189,24 @@
+    }
+    
+ #if defined(WIN32)
+-   int pid=0;
+-
+    if ( background )
+    {
+       cerr << "The -b background option does not work in windows" << endl;
+       exit(-1);
+    }
++#endif
++
++
++   StunServerInfo info;
++   bool ok = stunInitServer(info, myAddr, altAddr, myMediaPort, verbose);
++
++   if (!ok)
++   {
++      cerr << "Init failed" << endl;
++      exit(1);
++   }
++#if defined(WIN32)
++   int pid=0;
+ #else
+    pid_t pid=0;
+ 
+@@ -213,9 +224,6 @@
+ 
+    if (pid == 0) //child or not using background
+    {
+-      StunServerInfo info;
+-      bool ok = stunInitServer(info, myAddr, altAddr, myMediaPort, verbose);
+-      
+       int c=0;
+       while (ok)
+       {

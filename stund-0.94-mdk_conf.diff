@@ -1,0 +1,83 @@
+diff -Naur stund/Makefile stund.oden/Makefile
+--- stund/Makefile	2004-10-29 17:14:56.000000000 +0200
++++ stund.oden/Makefile	2005-04-28 11:33:41.309079441 +0200
+@@ -27,22 +27,22 @@
+ #LDFLAGS+= -lnsl -lsocket
+ 
+ 
+-all: server client 
++all: stun-server stun-client
+ 
+ clean:
+-	- rm *.o server client tlsServer 
++	- rm *.o stun-server stun-client tlsServer 
+ 
+ tar: $(TARS)
+ 	cd ..; tar cvfz `date +"stund/stund_$(VERSION)_$(PROG)%b%d.tgz"` \
+ 			 $(addprefix stund/, $(TARS))
+ 
+-server: server.o stun.o udp.o 
++stun-server: server.o stun.o udp.o 
+ 	$(CXX) $(LDFLAGS) -o $@  $^
+ 
+ tlsServer: tlsServer.o stun.o udp.o
+ 	$(CXX) $(LDFLAGS) -o $@  $^
+ 
+-client: client.o stun.o udp.o 
++stun-client: client.o stun.o udp.o 
+ 	$(CXX) $(LDFLAGS) -o $@  $^
+ 
+ %.o:%.cxx
+#diff -Naur stund/client.cxx stund.oden/client.cxx
+#--- stund/client.cxx	2004-10-29 17:15:45.000000000 +0200
+#+++ stund.oden/client.cxx	2005-04-28 12:07:18.002028687 +0200
+#@@ -23,12 +23,12 @@
+# usage()
+# {
+#    cerr << "Usage:" << endl
+#-	<< "    ./client stunServerHostname [testNumber] [-v] [-p srcPort] [-i nicAddr1] [-i nicAddr2] [-i nicAddr3]" << endl
+#+	<< "    stun-client stunServerHostname [testNumber] [-v] [-p srcPort] [-i nicAddr1] [-i nicAddr2] [-i nicAddr3]" << endl
+# 	<< "For example, if the STUN server was larry.gloo.net, you could do:" << endl
+#-	<< "    ./client larry.gloo.net" << endl
+#+	<< "    stun-client larry.gloo.net" << endl
+# 	<< "The testNumber is just used for special tests." << endl
+# 	<< " test 1 runs test 1 from the RFC. For example:" << endl
+#-	<< "    ./client larry.gloo.net 0" << endl << endl
+#+	<< "    stun-client larry.gloo.net 0" << endl << endl
+#         << "Return Values:" << endl
+#         << " -1  Generic Error" << endl << endl
+#         << "low order bits (mask 0x07)" << endl
+diff -Naur stund/server.cxx stund.oden/server.cxx
+--- stund/server.cxx	2004-10-29 17:15:51.000000000 +0200
++++ stund.oden/server.cxx	2005-04-28 12:06:30.552990862 +0200
+@@ -23,10 +23,10 @@
+ usage()
+ {
+    cerr << "Usage: " << endl
+-        << " ./server [-v] [-h] [-h IP_Address] [-a IP_Address] [-p port] [-o port] [-m mediaport]" << endl
++        << " stun-server [-v] [-h] [-h IP_Address] [-a IP_Address] [-p port] [-o port] [-m mediaport]" << endl
+         << " " << endl
+         << " If the IP addresses of your NIC are 10.0.1.150 and 10.0.1.151, run this program with" << endl
+-        << "    ./server -v  -h 10.0.1.150 -a 10.0.1.151" << endl
++        << "    stun-server -v  -h 10.0.1.150 -a 10.0.1.151" << endl
+         << " STUN servers need two IP addresses and two ports, these can be specified with:" << endl
+         << "  -h sets the primary IP" << endl
+         << "  -a sets the secondary IP" << endl
+--- stund/client.cxx.orig	2005-08-14 02:43:10.000000000 +0200
++++ stund/client.cxx	2006-10-17 22:40:11.000000000 +0200
+@@ -23,12 +23,12 @@
+ usage()
+ {
+    cerr << "Usage:" << endl
+-	<< "    ./client stunServerHostname [testNumber] [-v] [-p srcPort] [-i nicAddr1] [-i nicAddr2] [-i nicAddr3]" << endl
++	<< "    stun-client stunServerHostname [testNumber] [-v] [-p srcPort] [-i nicAddr1] [-i nicAddr2] [-i nicAddr3]" << endl
+ 	<< "For example, if the STUN server was larry.gloo.net, you could do:" << endl
+-	<< "    ./client larry.gloo.net" << endl
++	<< "    stun-client larry.gloo.net" << endl
+ 	<< "The testNumber is just used for special tests." << endl
+ 	<< " test 1 runs test 1 from the RFC. For example:" << endl
+-	<< "    ./client larry.gloo.net 0" << endl << endl
++	<< "    stun-client larry.gloo.net 0" << endl << endl
+         << endl;
+ }
+ 
