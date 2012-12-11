@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# chkconfig: 2345 55 45
+# description:	The STUN (Simple Traversal of UDP through NATs (Network Address \
+#		Translation)) server is an implementation of the STUN protocol \
+#		that enables STUN functionality in SIP-based systems.
+# processname: stun-server
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Get config.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+if [ ${NETWORKING} = "no" ]; then
+    exit 0
+fi
+
+[ -x /usr/sbin/stun-server ] || exit 0
+
+# Source configuration file
+[ -f /etc/sysconfig/stun-server ] && . /etc/sysconfig/stun-server
+
+RETVAL=0
+
+# See how we were called.
+case "$1" in
+  start)
+	echo -n "Starting stun-server: "
+	if [ -z ${STUND_OPTIONS} ]; then
+	    stun-server -b 2>/dev/null 1>&2 && success || failure
+	else
+	    stun-server -b ${STUND_OPTIONS} 2>/dev/null 1>&2 && success || failure
+        fi
+	RETVAL=$?
+        echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/stun-server
+	;;
+  stop)
+	echo -n "Stopping stun-server: "
+	killproc stun-server
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/stun-server
+	;;
+  status)
+	status stun-server
+	RETVAL=$?
+	;;
+  restart|reload)
+	$0 stop
+	$0 start
+	RETVAL=$?
+	;;
+  *)
+	echo "Usage: stun-server {start|stop|status|restart|reload}"
+	exit 1
+esac
+
+exit $RETVAL

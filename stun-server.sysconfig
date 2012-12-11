@@ -1,0 +1,2 @@
+# Pass additional options to the STUN server here
+#STUND_OPTIONS="-h 10.0.1.150 -a 10.0.1.151"

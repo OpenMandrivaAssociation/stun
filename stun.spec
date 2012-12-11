@@ -72,7 +72,7 @@ This package contains the STUN client.
 %patch2 -p0
 
 # strip away annoying ^M
-find -type f -exec dos2unix {} \;
+find -type f -exec dos2unix -U {} \;
 
 cp %{SOURCE1} stun-server.init
 cp %{SOURCE2} stun-server.sysconfig
@@ -114,4 +114,58 @@ install -m0644 stun-server.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/stun-s
 %defattr(-,root,root,-)
 %attr(0755,root,root) %{_sbindir}/stun-client 
 
+
+
+
+%changelog
+* Tue Sep 08 2009 Thierry Vignaud <tvignaud@mandriva.com> 0.96-6mdv2010.0
++ Revision: 434139
+- rebuild
+
+* Sat Aug 02 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.96-5mdv2009.0
++ Revision: 261211
+- rebuild
+
+* Tue Jul 29 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.96-4mdv2009.0
++ Revision: 253627
+- rebuild
+
+* Wed Jan 02 2008 Olivier Blin <oblin@mandriva.com> 0.96-2mdv2008.1
++ Revision: 140863
+- restore BuildRoot
+
+  + Thierry Vignaud <tvignaud@mandriva.com>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Tue Mar 27 2007 Oden Eriksson <oeriksson@mandriva.com> 0.96-2mdv2007.1
++ Revision: 148937
+- added p2 by  Christofer Edvardsen "The server did not check the return
+- status of stunInitServer before forking to background. This caused the
+- server to silently die after start instead of failing on startup when
+- for example a faulty ip address was supplied."
+
+* Wed Oct 18 2006 Stefan van der Eijk <stefan@mandriva.org> 0.96-1mdv2007.0
++ Revision: 66058
+- 0.96
+
+  + Nicolas LÃ©cureuil <neoclust@mandriva.org>
+    - 0.94-6mdv2007.0
+    - Import stun
+
+* Wed Nov 30 2005 Oden Eriksson <oeriksson@mandriva.com> 0.94-5mdk
+- rebuilt against openssl-0.9.8a
+
+* Thu Oct 20 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.94-4mdk
+- Fix PreReq
+
+* Thu Oct 20 2005 Nicolas Lécureuil <neoclust@mandriva.org> 0.94-3mdk
+- Fix BuildRequires
+
+* Fri May 13 2005 Oden Eriksson <oeriksson@mandriva.com> 0.94-2mdk
+- make it compile on x86_64 (P1)
+- use better anti ^M stripper
+
+* Fri Apr 29 2005 Oden Eriksson <oeriksson@mandriva.com> 0.94-1mdk
+- initial Mandriva package
 
