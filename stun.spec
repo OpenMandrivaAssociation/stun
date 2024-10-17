@@ -4,7 +4,7 @@ Version:        0.96
 Release:        7
 License:        BSD
 Group:          System/Servers
-URL:            http://www.vovida.org/applications/downloads/stun/
+URL:            https://www.vovida.org/applications/downloads/stun/
 Source0:        http://prdownloads.sourceforge.net/stun/stund_%{version}_Aug13.tar.bz2
 Source1:        stun-server.init
 Source2:        stun-server.sysconfig
