@@ -13,6 +13,7 @@ Patch1:         stund-0.94-x86_64.diff
 Patch2:         stun-checkinit.diff
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
+BuildRequires:	make
 BuildRequires:	dos2unix
 BuildRequires:	openssl-devel
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-buildroot
